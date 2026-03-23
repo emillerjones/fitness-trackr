@@ -35,3 +35,26 @@ export async function createActivity(token, activity) {
     throw Error(result.message);
   }
 }
+
+
+export async function deleteActivity(token, activity) {
+  if (!token) {
+    throw Error("You must be signed in to delete an activity.");
+  }
+
+  //let id = activity.id;
+
+  const response = await fetch(API + "/activities/" + activity.id, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    //body: JSON.stringify(activity),
+  });
+
+  if (!response.ok) {
+    const result = await response.json();
+    throw Error(result.message);
+  }
+}
